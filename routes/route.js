@@ -2,16 +2,14 @@ const fs = require("fs");
 
 const routeHandler = (req, res) => {
   if (req.url === "/") {
-    res.end(
-      `<html>
+    res.end(`<html>
 <body>
 <form method="POST" action="/message">
 <input placeholder="Enter data" name="message"/>
 <button type="submit">Send</button>
 </form>
 </body>
-</html>`
-    );
+</html>`);
   }
   if (req.url === "/message" && req.method === "POST") {
     let body = [];
