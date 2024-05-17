@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const path = require("path");
+const rootpath = require("./utils/path");
 
 const adminRoute = require("./routes/admin");
 const userRoute = require("./routes/user");
@@ -22,7 +23,7 @@ app.use(userRoute);
 app.use("/admin", adminRoute);
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "views", "404page.html"));
+  res.sendFile(path.join(rootpath, "views", "404page.html"));
 });
 
 app.listen(3000);
