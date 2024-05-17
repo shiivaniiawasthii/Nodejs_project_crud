@@ -27,7 +27,9 @@ app.use(userRoute);
 app.use("/admin", adminRoute.router);
 
 app.use((req, res, next) => {
-  res.status(404).render("404page", { pageTitle: "Page Not Found" });
+  res
+    .status(404)
+    .render("404page", { pageTitle: "Page Not Found", path: req.path });
 });
 
 app.listen(3000);
