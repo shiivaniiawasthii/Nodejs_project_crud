@@ -8,7 +8,9 @@ const path = require("path");
 const rootpath = require("./utils/path");
 
 const adminRoute = require("./routes/admin");
-const userRoute = require("./routes/user");
+const userRoute = require("./routes/shop");
+
+const controllers404 = require("./controllers/404");
 
 const app = express();
 
@@ -26,10 +28,6 @@ app.use(userRoute);
 
 app.use("/admin", adminRoute.router);
 
-app.use((req, res, next) => {
-  res
-    .status(404)
-    .render("404page", { pageTitle: "Page Not Found", path: req.path });
-});
+app.use(controllers404.page404);
 
 app.listen(3000);
