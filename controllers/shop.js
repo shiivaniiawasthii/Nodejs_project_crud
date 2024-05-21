@@ -12,14 +12,8 @@ exports.getProducts = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 exports.getProduct = (req, res, next) => {
-  console.log(req, "reqqqqq");
-  const prodId = req.params.productId;
-
   Product.findAll({ where: { id: prodId } })
     .then((product) => {
-      console.log(prodId, "proid");
-      console.log(product, "get single products");
-
       res.render("shop/product-detail", {
         product: product[0],
         pageTitle: product[0].title,
