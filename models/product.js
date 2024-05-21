@@ -1,21 +1,4 @@
-const fs = require("fs");
-const path = require("path");
-
-const p = path.join(
-  path.dirname(process.mainModule.filename),
-  "data",
-  "products.json"
-);
-
-const getProductsFromFile = (cb) => {
-  fs.readFile(p, (err, fileContent) => {
-    if (err) {
-      cb([]);
-    } else {
-      cb(JSON.parse(fileContent));
-    }
-  });
-};
+const db = require("../utils/database");
 
 module.exports = class Product {
   constructor(title, imageUrl, description, price) {
@@ -26,25 +9,16 @@ module.exports = class Product {
   }
 
   save() {
-    this.id = Math.random().toString();
-    getProductsFromFile((products) => {
-      products.push(this);
-      fs.writeFile(p, JSON.stringify(products), (err) => {
-        console.log(err, 22);
-      });
-    });
+    return db.execute(
+      "INSERT INTO products (title,price,description,image_url) VALUES (?,?,?,?)",
+      [this.title, this.price, this.description, this.imageUrl]
+    );
   }
 
-  static fetchAll(callBackfunc) {
-    getProductsFromFile(callBackfunc);
+  static fetchAll() {
+    return db.execute("SELECT * FROM products");
   }
-  static findById(id, cb) {
-    console.log(id, "id in model");
-    getProductsFromFile((products) => {
-      console.log(products, "search");
-      const product = products.find((p) => p.id == id);
-      cb(product);
-      console.log(product, "product");
-    });
+  static findById(id) {
+    return db.execute("SELECT * FROM products WHERE products.id = ?", [id]);
   }
 };
