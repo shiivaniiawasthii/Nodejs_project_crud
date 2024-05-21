@@ -39,12 +39,9 @@ module.exports = class Product {
     getProductsFromFile(callBackfunc);
   }
   static findById(id, cb) {
-    console.log(id, "id in model");
     getProductsFromFile((products) => {
-      console.log(products, "search");
       const product = products.find((p) => p.id == id);
       cb(product);
-      console.log(product, "product");
     });
   }
 };
