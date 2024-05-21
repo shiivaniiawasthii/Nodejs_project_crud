@@ -9,6 +9,7 @@ const userRoute = require("./routes/shop");
 
 const controllers404 = require("./controllers/404");
 
+const sequelize = require("./utils/database");
 const app = express();
 
 app.set("view engine", "ejs");
@@ -25,4 +26,10 @@ app.use("/admin", adminRoute.router);
 
 app.use(controllers404.page404);
 
+sequelize
+  .sync()
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => console.log(err, "err"));
 app.listen(3001);
