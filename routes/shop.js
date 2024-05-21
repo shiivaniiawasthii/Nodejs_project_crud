@@ -1,7 +1,5 @@
 const express = require("express");
 
-const adminData = require("./admin");
-
 const shopController = require("../controllers/shop");
 
 const router = express.Router();
